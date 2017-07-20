@@ -1,9 +1,9 @@
 {
-  "name": "angularApp",
-  "version": "0.0.0",
+  "name": "meanApp",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./server/server"
+    "start": "node ./server/app"
   },
   "dependencies": {
     "body-parser": "^1.17.2",
@@ -12,7 +12,7 @@
     "crypto": "0.0.3",
     "debug": "~2.6.3",
     "express": "~4.15.2",
-    "express-session": "^1.15.3",
+    "express-session": "^1.15.4",
     "jade": "~1.11.0",
     "jsonwebtoken": "^7.4.1",
     "lodash": "^4.17.4",
