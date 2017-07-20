@@ -1,0 +1,41 @@
+<div class="login-page">
+	<div class="img-container">
+		<div class="text-center pull-right photo">
+			<img src="public/images/flat-avatar.png" class="user-avatar img-circle img-responsive" />
+				<h1>EMPLOYEE<br/> <span>DASHBOARD</span><br/></h1>
+			</div>
+		</div>
+		
+		<div class="form-content">
+			<div class="pro-link">
+				<a target="_blank" href="http://www.google.co.in/">Search on Google</a>
+			</div>
+			<form role="form" class="bottom-75" ng-submit="submit()">
+				<div ng-if="errorMessage">{{ errorMessage }}</div>
+				<div class="table-form">
+					<div class="form-groups">
+						<div class="form-group">
+							<input type="text" class="form-control input-lg" ng-model="userName" id="userName" placeholder="USER NAME" required>
+						</div>
+						<div class="form-group">
+							<input type="password" class="form-control input-lg" ng-model="password" id="password" placeholder="PASSWORD" required>
+						</div>
+
+
+					</div>
+					<div class="button-container">
+						<button type="submit" class="btn btn-default login"><img src="public/images/arrow.png" alt=""></button>
+					</div>
+				</div>
+				<div class="remember">
+					<label class="checkbox1" for="Option">
+						<input id="Option" type="checkbox" class="">
+						<span></span>
+					</label>
+					Remember Me
+					<span class="pass"> Forgot Password?</span>
+				</div>
+			</form>
+		</div>			
+	</div>
+</div>

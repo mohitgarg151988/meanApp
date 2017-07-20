@@ -1,0 +1,11 @@
+{
+  // test database configs
+  "test": {
+    "dbConfig": {
+      "host": "localhost",
+      "port": 27017,
+      "dbName": "test",
+      "dbType" : "mongodb"
+    }
+  }
+}
