@@ -5,6 +5,9 @@
 var express = require('express');
 var router = express.Router();
 var userApi = require('../models/user.js');
+var jwt = require('jsonwebtoken');
+var cfj = require('../config/config.js');
+
 
 router.post('/getUser', function(req, res) {
     userApi.getByUserName(req.body.userName, function(err, data) {
@@ -18,9 +21,16 @@ router.post('/getUser', function(req, res) {
 router.post("/login", function (req, res) {
     userApi.authenticate(req.body.userName, req.body.password, function (err, user) {
         if (user) {
-            res.send(user);
+            var payload = {id: user._id};
+            var token = jwt.sign(payload, cfj.jwtSecret);
+            //res.cookie('auth', token);
+            res.json({
+                success: true,
+                message: 'Enjoy your token!',
+                token: token
+            });
         } else{
-            res.send(err);
+            res.json({ success: false, message: err });
         }
     });
 });

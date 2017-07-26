@@ -8,21 +8,32 @@
  * Controller of yapp
  */
 angular.module('yapp')
-  .controller('LoginCtrl', ['DataService','$scope','$location',
-      function(DataService,$scope,$location) {
-
+    .controller('LogoutCtrl',['$http','$localStorage',
+        function ($http,$localStorage) {
+            // remove user from local storage and clear http auth header
+            delete $localStorage.currentUser;
+            $http.defaults.headers.common.Authorization = '';
+        }
+    ])
+    .controller('LoginCtrl', ['DataService','$scope','$location','$http','$localStorage',
+      function(DataService,$scope,$location,$http,$localStorage) {
+    
         $scope.submit = function() {
             DataService.getUserData($scope.userName, $scope.password)
                 .then(function(results) {
-                    if (results._id){
+                    if (results.token){
+                        // store token in local storage to keep user logged in between page refreshes
+                        $localStorage.currentUser = {token: results.token };
+                        // add jwt token to auth header for all requests made by the $http service
+                        $http.defaults.headers.common.Authorization = results.token;
                         $location.path('/dashboard');
                     } else {
-                        if (angular.isString(results))
-                            $scope.errorMessage = results+', Please use valid credentials.';
+                        if (angular.isString(results.message))
+                            $scope.errorMessage = results.message+', Please use valid credentials.';
                         else
                             $scope.errorMessage = 'Please use valid credentials.';
                     }
-                }, function(error) {
+                }, function(error) {console.log(error);
                     $scope.errorMessage = false;
                     console.log(error);
                     return false;
@@ -31,8 +42,8 @@ angular.module('yapp')
                     return false;
                     console.log('executed finally in login route');
                 });
-
+    
             return false;
         }
       }
-  ]);
+    ]);
