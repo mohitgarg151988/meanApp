@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<body>
+    <div class="container">
+        <form ng-controller="RegisterCtrl" class="form-horizontal" role="form-register" ng-submit="submit()">
+            <h2>Registration Form</h2>
+            <div ng-if="errorMessage">{{ errorMessage }}</div>
+            <div class="form-group">
+                <label for="name" class="col-sm-3 control-label">Full Name</label>
+                <div class="col-sm-9">
+                    <input ng-model="formData.name" type="text" id="name" placeholder="Full Name" class="form-control" autofocus >
+                    <span class="help-block">Last Name, First Name, eg.: Smith, Harry</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="userName" class="col-sm-3 control-label">Email</label>
+                <div class="col-sm-9">
+                    <input ng-model="formData.userName" type="text" id="userName" placeholder="Email" class="form-control" >
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="password" class="col-sm-3 control-label">Password</label>
+                <div class="col-sm-9">
+                    <input ng-model="formData.password" type="password" id="password" placeholder="Password" class="form-control" >
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="confirmPassword" class="col-sm-3 control-label">Confirm Password</label>
+                <div class="col-sm-9">
+                    <input ng-model="confirmPassword" type="password" id="confirmPassword" placeholder="Confirm Password" class="form-control" >
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="birthDate" class="col-sm-3 control-label">Date of Birth</label>
+                <div class="col-sm-9">
+                    <input ng-model="formData.birthDate" type="date" id="birthDate" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="country" class="col-sm-3 control-label">Country</label>
+                <div class="col-sm-9">
+                    <select ng-model="formData.country" id="country" class="form-control" >
+                        <option>India</option>
+                    </select>
+                </div>
+            </div> <!-- /.form-group -->
+            <div class="form-group">
+                <label class="control-label col-sm-3">Gender</label>
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label class="radio-inline">
+                                <input ng-model="formData.gender" type="radio" value="Female">Female
+                            </label>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="radio-inline">
+                                <input ng-model="formData.gender" type="radio" value="Male">Male
+                            </label>
+                        </div>
+                        <div class="col-sm-4">
+                            <label class="radio-inline">
+                                <input ng-model="formData.gender" type="radio" value="Others">Others
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-9 col-sm-offset-3">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox">I accept <a href="#" >terms</a>
+                        </label>
+                    </div>
+                </div>
+            </div> <!-- /.form-group -->
+            <div class="form-group">
+                <div class="col-sm-9 col-sm-offset-3">
+                    <button type="submit" class="btn btn-primary btn-block">Register</button>
+                </div>
+            </div>
+        </form> <!-- /form -->
+    </div> <!-- ./container -->
+</body>
+</html>

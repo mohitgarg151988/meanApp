@@ -36,6 +36,22 @@ angular.module('yapp').factory("DataService",[ '$q', '$timeout', '$http',
                 function errorCallback(error){
                     console.log(error);
                 }
+            },
+            registerUser: function (formData) {
+                return $http({
+                    url: 'http://localhost:5001/users/register',
+                    method: "POST",
+                    data: formData,
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(successCallback, errorCallback);
+                function successCallback(response){
+                    return response.data;
+                }
+                function errorCallback(error){
+                    console.log(error);
+                }
             }
         };
     }

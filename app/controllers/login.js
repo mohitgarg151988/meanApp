@@ -8,6 +8,31 @@
  * Controller of yapp
  */
 angular.module('yapp')
+    .controller('RegisterCtrl',['DataService','$scope','$location',
+        function(DataService,$scope,$location) {
+
+            $scope.submit = function() {
+                DataService.registerUser($scope.formData)
+                    .then(function(results) {
+                        if (results.success){
+                            $location.path('/login');
+                        } else {
+                            $scope.errorMessage = results.message;
+                        }
+                    }, function(error) {
+                        $scope.errorMessage = false;
+                        console.log(error);
+                        return false;
+                    })
+                    .finally(function() {
+                        return false;
+                        console.log('executed finally in register route');
+                    });
+
+                return false;
+            }
+        }
+    ])
     .controller('LogoutCtrl',['$http','$localStorage',
         function ($http,$localStorage) {
             // remove user from local storage and clear http auth header

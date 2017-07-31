@@ -3,9 +3,10 @@
  */
 var db = require('../db');
 var utils  = require('./utils');
+
 exports.getByUserName = function(userName, cb) {
     var collection = db.get().collection('users')
-    collection.find({"name":userName}).toArray(function(err, docs) {
+    collection.find({userName:userName}).toArray(function(err, docs) {
         cb(err, docs)
     })
 }
@@ -14,7 +15,7 @@ exports.authenticate = function (name, pass, fn) {
     console.log('authenticating %s:%s', name, pass);
     var collection = db.get().collection('users')
     collection.findOne({
-        name: name
+        userName: name
     },function (err, user) {
         if (user) {
             utils.getSaltHashPassword(pass, user.hashSalt, function (hash) {
@@ -25,5 +26,28 @@ exports.authenticate = function (name, pass, fn) {
             return fn('Can not find user');
         }
     });
+}
 
+exports.registeration = function (data, fn) {
+    var collection = db.get().collection('users')
+    collection.findOne({
+        userName: data.userName
+    },function (err, user) {
+        if (user) {
+            return fn('User already exists with User Name '+ data.userName);
+        } else {
+            return utils.getSaltHashPassword(data.password, null, function (hash) {
+                var user = collection.insertOne( {
+                     name : data.name,
+                     userName : data.userName,
+                     birthDate : "2012-10-20",
+                     country : data.country,
+                     gender : data.gender,
+                     passwordHash : hash.passwordHash,
+                     hashSalt : hash.salt
+                });
+                fn(null, user);
+            });
+        }
+    });
 }

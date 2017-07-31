@@ -35,4 +35,17 @@ router.post("/login", function (req, res) {
     });
 });
 
+router.post("/register", function (req, res) {
+    userApi.registeration(req.body, function (err, user) {
+        if(user) {
+            res.json({
+                success: true,
+                message: 'User Registered Successfully!'
+            });
+        } else{
+            res.json({ success: false, message: err })
+        }
+    });
+});
+
 module.exports = router;

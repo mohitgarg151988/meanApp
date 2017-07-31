@@ -11,6 +11,7 @@
 var states = [
         { name: 'base', state: { abstract: true, url: '', templateUrl: 'app/views/base.html', data: {text: "Base", visible: false } } },
         { name: 'login', state: { url: '/login', parent: 'base', templateUrl: 'app/views/login.html', controller: 'LoginCtrl', data: {text: "Login", visible: false } } },
+        { name: 'register', state: { url: '/register', parent: 'base', templateUrl: 'app/views/register.html', controller: 'RegisterCtrl', data: {text: "Register", visible: false } } },
         { name: 'dashboard', state: { url: '/dashboard', parent: 'base', templateUrl: 'app/views/dashboard.html', controller: 'DashboardCtrl', data: {text: "Dashboard", visible: false } } },
         { name: 'overview', state: { url: '/overview', parent: 'dashboard', templateUrl: 'app/views/dashboard/overview.html', data: {text: "Overview", visible: true } } },
         { name: 'reports', state: { url: '/reports', parent: 'dashboard', templateUrl: 'app/views/dashboard/reports.html', data: {text: "Employee Reports", visible: true } } },
@@ -41,10 +42,15 @@ angular.module('yapp', [
 
             // redirect to login page if not logged in and trying to access a restricted page
             $rootScope.$on('$locationChangeStart', function (event, next, current) {
-                var publicPages = ['/login'];
+                var publicPages = ['/login','/register'];
                 var restrictedPage = publicPages.indexOf($location.path()) === -1;
+
+                //if it is restricted page and user is not logged in then redirect to login page
                 if (restrictedPage && !$localStorage.currentUser) {
-                    $location.path('/login');
+                   $location.path('/login');
+                } else if ($location.path() === '/login' && $localStorage.currentUser) {
+                    //if user is already login and trying to access login page then redirect to dashboard
+                    $location.path('/dashboard');
                 }
             });
         });
